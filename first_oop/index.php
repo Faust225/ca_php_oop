@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * 
+ */
 class ThailandSurprise {
 	public $clothes;
+	private $balls;
+
+	public function __construct() {
+		$this->balls = rand(0, 1);
+	}
 }
 
-$val = new ThailandSurprise();
-$val->clothes = 'miniskirt';
-print $val->clothes;
+$surprise = new ThailandSurprise();
+var_dump($surprise);
