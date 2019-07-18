@@ -3,6 +3,17 @@
 /**
  * 
  */
+class FileDB {
+	private $file_name;
+
+	public function __construct($file_name) {
+		$this->file_name = $file_name;
+	}
+}
+
+$file = new FileDB('info.txt');
+var_dump($file);
+
 class ThailandSurprise {
 	public $clothes;
 	private $balls;
