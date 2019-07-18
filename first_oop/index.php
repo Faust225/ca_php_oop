@@ -10,7 +10,16 @@ class ThailandSurprise {
 	public function __construct() {
 		$this->balls = rand(0, 1);
 	}
+
+	public function attachBalls() {
+		return $this->balls = 1;
+	}
+
+	public function detachBalls() {
+		return $this->balls = 0;
+	}
 }
 
 $surprise = new ThailandSurprise();
-var_dump($surprise);
+print $surprise->attachBalls() . ' ';
+print $surprise->detachBalls();
