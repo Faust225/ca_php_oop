@@ -1,0 +1,1 @@
+[{"first_name":"user_1","last_name":"kdwa","email":"user_1@gmail.com","password":"12345"},{"first_name":"user_2","last_name":"kdwa","email":"user_2@gmail.com","password":"123456"}]
