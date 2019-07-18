@@ -6,11 +6,11 @@
 class ThailandSurprise {
 	public $clothes;
 	private $balls;
-	private $secret_adventure;
+	private $name;
 
 	public function __construct($adventure) {
 		$this->balls = rand(0, 1);
-		return $this->secret_adventure = $adventure;
+	 	$this->name = $adventure;
 	}
 
 	public function attachBalls() {
@@ -32,6 +32,7 @@ class ThailandSurprise {
 
 $surprise = new ThailandSurprise('Buvau Narnijoje');
 var_dump($surprise);
+
 ?>
 <!DOCTYPE html>
 <html>
