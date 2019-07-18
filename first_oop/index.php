@@ -6,9 +6,11 @@
 class ThailandSurprise {
 	public $clothes;
 	private $balls;
+	private $secret_adventure;
 
-	public function __construct() {
+	public function __construct($adventure) {
 		$this->balls = rand(0, 1);
+		return $this->secret_adventure = $adventure;
 	}
 
 	public function attachBalls() {
@@ -28,15 +30,15 @@ class ThailandSurprise {
 	}
 }
 
-$surprise = new ThailandSurprise();
-
+$surprise = new ThailandSurprise('Buvau Narnijoje');
+var_dump($surprise);
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
-<img src="<?php print $surprise->getPhoto(); ?>">
-</body>
+	<head>
+		<title></title>
+	</head>
+		<body>
+			<img src="<?php print $surprise->getPhoto(); ?>">
+		</body>
 </html>
