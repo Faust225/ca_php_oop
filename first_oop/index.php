@@ -16,14 +16,13 @@ class FileDB {
 			$encoded_string = file_get_contents($this->file_name);
 
         if ($encoded_string !== false) {
-            return json_decode($encoded_string, true);
+            $this->data = json_decode($encoded_string, true);
         	}   
 		}
 	}
 
 
 	public function getData() {
-		$this->data = load();
 	}
 
 	public function setData($data_array) { 
