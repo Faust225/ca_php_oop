@@ -23,18 +23,22 @@ class FileDB {
 	public function getData() {
 		if($this->data === null) {
 			$this->load();
-			return $this->data;
-		} else {
-			return $this->data;
 		}
+			return $this->data;
 	}
 
-	public function setData($data_array) { 
-
+	public function setData($data_array) { // paimti arraju
+		return $data_array = $this->data;
 	}
 
-	public function save() {
-
+	public function save() { // issaugoti i faila
+		$array_encode_to_jason_string = json_encode($this->data);
+		$success = file_put_contents($this->$file_name, $array_encode_to_jason_string); //$success atiduoda irasyta baitu skaiciu arba false
+		if($success !== FALSE) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
