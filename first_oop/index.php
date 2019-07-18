@@ -15,13 +15,13 @@ class FileDB {
 
 			// check if file is not empty
         if ($encoded_string !== false) {
-            return $this->data = json_decode($encoded_string, true);
+            $this->data = json_decode($encoded_string, true);
         	}   
 		}
 	}
 
 	public function getData() {
-		if($this->data != null) {
+		if($this->data === null) {
 			$this->load();
 		} else {
 			return $this->data;
@@ -38,7 +38,7 @@ class FileDB {
 }
 
 $file = new FileDB('info.txt');
-var_dump($file->load());
+$file->load();
 var_dump($file->getData());
 
 ?>
