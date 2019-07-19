@@ -15,9 +15,9 @@ class FileDB {
 		}
 		return false;
 	}
-	
+
 	public function createTable($table_name) {
-		if (tableExists($table_name)) {
+		if ($this->tableExists($table_name)) {
 			return false;
 		}
 		$this->data[$table_name] = [];
@@ -32,14 +32,26 @@ class FileDB {
 		return false;
 	}
 
-	public function truncateTable($table_name) {
-		if(isset($this->data[$table_name])) {
-			$this->data[$table_name] = [];
+	public function insertRow($table_name, $row, $row_id = null) {
+		if($this->tableExists($table_name)) {
+			$row_id = count($this->data[$table_name]);
+			if($row_id === null) {
+				$row_id = 0;
+			}
+			$this->data[$table_name][$row_id][] = $row;
 			return true;
 		}
 		return false;
 	}
 
+	public function truncateTable($table_name) {
+		if(isset($this->data[$table_name])) {
+			$this->data[$table_name] = [];
+		}
+		return false;
+	}
+
+	// for arrays
 	public function load() {
 		// check if file exists
 		if (file_exists($this->file_name)) {
