@@ -9,12 +9,35 @@ class FileDB {
 		$this->file_name = $file_name;
 	}
 
+	public function tableExists($table_name) {
+		if(isset($this->data[$table_name])) {
+			return true;
+		}
+		return false;
+	}
+	
 	public function createTable($table_name) {
-		if (isset($this->data[$table_name])) {
+		if (tableExists($table_name)) {
 			return false;
 		}
 		$this->data[$table_name] = [];
 		return true;
+	}
+
+	public function dropTable($table_name) {
+		if(isset($this->data[$table_name])) {
+			unset($this->data[$table_name]);
+			return true;
+		}
+		return false;
+	}
+
+	public function truncateTable($table_name) {
+		if(isset($this->data[$table_name])) {
+			$this->data[$table_name] = [];
+			return true;
+		}
+		return false;
 	}
 
 	public function load() {
@@ -54,6 +77,7 @@ class FileDB {
 $file = new FileDB('info.txt');
 $file->load();
 var_dump($file->getData());
+$file->createTable('hello');
 
 ?>
 <!DOCTYPE html>
