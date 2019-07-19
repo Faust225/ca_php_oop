@@ -1,7 +1,7 @@
 <?php
 
-print $math_action;
 class FileDB {
+
 	private $file_name;
 	private $data;
 
@@ -9,11 +9,12 @@ class FileDB {
 		$this->file_name = $file_name;
 	}
 
-	public function($table_name) {
+	public function createTable($table_name) {
 		if (isset($this->data[$table_name])) {
-			return 'table name already exists';
+			return false;
 		}
-		
+		$this->data[$table_name] = [];
+		return true;
 	}
 
 	public function load() {
