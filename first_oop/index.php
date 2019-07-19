@@ -38,7 +38,7 @@ class FileDB {
 			if($row_id === null) {
 				$row_id = 0;
 			}
-			$this->data[$table_name][$row_id][] = $row;
+			$this->data[$table_name][$row_id] = $row;
 			return true;
 		}
 		return false;
