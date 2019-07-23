@@ -9,6 +9,7 @@ class FileDB {
 		$this->file_name = $file_name;
 	}
 
+	// methods for tables
 	public function tableExists($table_name) {
 		if(isset($this->data[$table_name])) {
 			return true;
@@ -32,24 +33,43 @@ class FileDB {
 		return false;
 	}
 
-	public function insertRow($table_name, $row, $row_id = null) {
-		if($this->tableExists($table_name)) {
-			$row_id = count($this->data[$table_name]);
-			if($row_id === null) {
-				$row_id = 0;
-			}
-			$this->data[$table_name][$row_id] = $row;
-			return true;
-		}
-		return false;
-	}
-
 	public function truncateTable($table_name) {
 		if(isset($this->data[$table_name])) {
 			$this->data[$table_name] = [];
 		}
 		return false;
 	}
+	// methods for tables ends
+
+	// methods for rows
+	public function rowExists($table_name, $row_id) {
+		if(isset($this->data[$table_name][$row_id])) {
+			return true;
+		}
+		return false;
+	}
+
+	public function insertRow($table_name, $row, $row_id = null) {
+		if($this->tableExists($table_name)) {
+			$row_id = count($this->data[$table_name]);
+			($row_id === null ? $this->data[$table_name][] = $row : $this->data[$table_name][$row_id] = $row);
+			return true;
+		}
+		return false;
+	}
+
+	public function updateRow($table_name, $row_id, $row) {
+		if(isset($this->data[$table_name][$row_id][$row])) {
+			$this->data[$table_name][$row_id][$row] = [];
+		} 
+	}
+
+	public function deleteRow($table_name, $row_id) {
+		if(isset($this->data[$table_name][$row_id])) {
+			unset($this->data[$table_name][$row_id]);
+		} 
+	}
+	// methods for row end
 
 	// for arrays
 	public function load() {
