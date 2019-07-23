@@ -9,11 +9,15 @@ class FileDB {
 		$this->file_name = $file_name;
 	}
 
-	// methods for tables
+	/**
+	 * methods for tables
+	 * @param $table_name string
+	 */
 	public function tableExists($table_name) {
 		if(isset($this->data[$table_name])) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -30,6 +34,7 @@ class FileDB {
 			unset($this->data[$table_name]);
 			return true;
 		}
+
 		return false;
 	}
 
@@ -37,23 +42,37 @@ class FileDB {
 		if(isset($this->data[$table_name])) {
 			$this->data[$table_name] = [];
 		}
+
 		return false;
 	}
 	// methods for tables ends
 
-	// methods for rows
+	/**
+	 * @param $row_id string|int
+	 */
 	public function rowExists($table_name, $row_id) {
 		if(isset($this->data[$table_name][$row_id])) {
 			return true;
 		}
+
 		return false;
 	}
 
+	/**
+	 *@param $row array - row data
+	 */
 	public function insertRow($table_name, $row, $row_id = null) {
 		if($this->tableExists($table_name)) {
 			$row_id = count($this->data[$table_name]);
 			($row_id === null ? $this->data[$table_name][] = $row : $this->data[$table_name][$row_id] = $row);
 			return true;
+		}
+		return false;
+	}
+
+	public function rowInsertIfNoExists($table_name, $row, $row_id) {
+		if(!rowExists($table_name, $row_id)) {
+			return $this->insertRow($table_name, $row, $row_id);
 		}
 		return false;
 	}
@@ -71,7 +90,9 @@ class FileDB {
 	}
 	// methods for row end
 
-	// for arrays
+	/**
+	 *  methods for data
+	 */
 	public function load() {
 		// check if file exists
 		if (file_exists($this->file_name)) {
@@ -83,7 +104,7 @@ class FileDB {
         	}   
 		}
 	}
-
+	
 	public function getData() {
 		if($this->data === null) {
 			$this->load();
@@ -91,16 +112,17 @@ class FileDB {
 			return $this->data;
 	}
 
-	public function setData($data_array) { // paimti arraju
+	public function setData($data_array) {
 		$data_array = $this->data;
 	}
 
-	public function save() { // issaugoti i faila
+	public function save() {
 		$array_encode_to_jason_string = json_encode($this->data);
 		$success = file_put_contents($this->file_name, $array_encode_to_jason_string); //$success atiduoda irasyta baitu skaiciu arba false
 		if($success !== FALSE) {
 			return true;
 		} else {
+
 			return false;
 		}
 	}
