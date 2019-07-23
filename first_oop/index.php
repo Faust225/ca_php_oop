@@ -88,6 +88,27 @@ class FileDB {
 			unset($this->data[$table_name][$row_id]);
 		} 
 	}
+
+	public function getRow($table_name, $row_id) {
+		if($this->rowExists($table_name, $row_id)) {
+			return $this->data[$table_name][$row_id];
+		}
+
+		return false;
+	}
+
+	public function getRowWhere($table_name, array $conditions) {
+		$this->data[$table_name];
+		foreach($this->data[$table_name] as $row) {
+			foreach($conditions as $condition_key => $condition) {
+				if($row[$condition_key] === $conditions[$condition_key]) {
+					// if exists it will return once
+					return $row;
+				}
+			}
+			
+		}
+	}
 	// methods for row end
 
 	/**
@@ -130,8 +151,15 @@ class FileDB {
 
 $file = new FileDB('info.txt');
 $file->load();
-var_dump($file->getData());
 $file->createTable('hello');
+$file->insertRow('hello', ['name' => 'Oscar'], null);
+$file->insertRow('hello', ['name' => 'Oscar'], null);
+$file->insertRow('hello', ['name' => 'Oscar'], null);
+$file->insertRow('hello', ['name' => 'Odd'], null);
+
+
+var_dump($file->getData());
+var_dump($file->getRowWhere('hello', ['name' => 'Oscar']));
 
 ?>
 <!DOCTYPE html>
