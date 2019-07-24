@@ -1,6 +1,11 @@
 <?php
 
-// php_oop_project.com
+/**
+ * composer:
+ * class reloading
+ * composer dump-autoload if do not work
+ * php_oop_project.com
+ */
 require '../bootloader.php';
 
 $nav = [
@@ -9,7 +14,7 @@ $nav = [
     ]
 ];
 
-$db = new FileDB(DB_FILE);
+$db = new Core\FileDB(DB_FILE);
 $db->createTable('test_table');
 $db->insertRow('test_table', ['name' => 'Zebenkstis', 'balls' => true]);
 $db->insertRow('test_table', ['name' => 'Cytis Ritinas', 'balls' => false]);
@@ -22,12 +27,13 @@ var_dump('All database data:', $db->getData());
 $rows_with_balls = $db->getRowsWhere('test_table', ['balls' => true]);
 var_dump('Rows with balls:', $rows_with_balls);
 
-$drink = new Drink;
+$drink = new App\Drinks\Drink();
 $drink->setName('mano neimas');
 $drink->setAmount(2);
 $drink->setAbarot(39.5);
 $drink->setImage('/img');
 $drink->setData([
+    'id' => 0,
     'name' => 'Moscovskaja',
     'amount_ml' => 3,
     'abarot' => 40,
@@ -36,6 +42,15 @@ $drink->setData([
 ]);
 
 var_dump('Drink:', $drink);
+
+// from Model.php is App\Drinks
+// Model is class name inside Model.php file
+$model = new App\Drinks\Model();
+
+$model->insert($drink);
+$model->get(['name' => 'oscar']);
+var_dump($model->insert($drink));
+// cannot use $fileDB->load(); because it is inside __construct in Model.php
 
 ?>
 <html>

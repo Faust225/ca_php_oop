@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Drinks;
+
 class Drink {
 
     private $data = [];
@@ -23,11 +25,15 @@ class Drink {
      * @param array $array
      */
     public function setData($array) {
-        $this->setName($array['id']) ?? null;
-        $this->setName($array['name']) ?? null;
-        $this->setAmount($array['amount_ml']) ?? null;
-        $this->setAbarot($array['abarot']) ?? null;
-        $this->setImage($array['image']) ?? null;
+        if(isset($array['id'])) {
+            $this->setId($array['id']);
+
+        }
+        
+        $this->setName($array['name'] ?? null);
+        $this->setAmount($array['amount_ml'] ?? null);
+        $this->setAbarot($array['abarot'] ?? null);
+        $this->setImage($array['image'] ?? null);
     }
 
     /**
@@ -52,11 +58,11 @@ class Drink {
         $this->data['id'] = $id;
     }
 
-     /**
-     * Gets id
-     * @param int $id
-     */
-    public function getId(int $id) {
+    /**
+    * Gets id
+    * get methods always without parameters
+    */
+    public function getId() {
         return $this->data['id'];
     }
 
