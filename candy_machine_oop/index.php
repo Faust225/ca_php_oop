@@ -29,19 +29,24 @@ class CandyMachine {
         ]
     ];
 
-    private function fillMachine() {
+    /**
+     * fill machine money and candies
+     */
+    public function fillMachine() {
         if($this->machine_money < 5) {
             $this->machine_money = 5;
         }
 
-        foreach($this->camdy_machine as $candy) {
+        foreach($this->candy_machine as &$candy) {
             if($candy['number_of_candies'] < 10) {
                 $candy['number_of_candies'] = 10;
             }
         }
     }
 
-    // calculate how much machine will return
+    /**
+     * calculate how much machine will return money
+     */ 
     private function calculate($candy_name) {
 
         // if user has more or enought money to buy a candy. Continue
@@ -61,8 +66,8 @@ class CandyMachine {
 
     public function takeCandy($candy_name) {
         
-            // check if candy is available
-            if($this->candy_machine[$candy_name]['number_of_candies'] > 0) {
+            // check if candy is available and check if it is not more than it can be
+            if($this->candy_machine[$candy_name]['number_of_candies'] > 0 && $this->candy_machine[$candy_name]['number_of_candies'] <= self::CANDYLIMIT) {
                 $this->candy_machine[$candy_name]['number_of_candies']--;
 
                 // output
