@@ -179,3 +179,7 @@ body {
 div.active a {
 	/*color: black;*/
 }
+
+.drink {
+    border: 1px solid black;
+}

@@ -13,15 +13,21 @@ class Model {
         $this->db->load();
         $this->db->createTable($this->table_name);
     }
-
+    /**
+     * @param Drink $drink
+     * @return new row in table with new data
+    */
     public function insert(Drink $drink) {
+
+        // $table_name string, $row array, $row_id optional
         return $this->db->insertRow($this->table_name, $drink->getData());
     }
 
-    public function get($conditions) {
+    public function get($conditions) { // !!!***
         $drinks = [];
        $rows = $this->db->getRowsWhere($this->table_name, $conditions);
-       foreach($rows as $row) { // ???
+       foreach($rows as $row_id => $row) { // ???
+            $row['id'] = $row_id;
             $drinks[] = new Drink($row); // works 
        }
        return $drinks;
@@ -29,7 +35,7 @@ class Model {
 
     public function update(Drink $drink) {
         // table_name, row_id, drink array change for to $drink->getId ???
-        $this->db->updateRow($this->table_name, 4, $this->insert($drink));
+        return $this->db->updateRow($this->table_name, $drink->getId(), $drink->getData());
     }
 
     /**
@@ -42,6 +48,7 @@ class Model {
     public function __destruct() {
         $this->db->save();
     }
+    
 }
 
 // objektu array 

@@ -21,7 +21,7 @@ class FileDB {
             $encoded_string = file_get_contents($this->file_name);
 
             if ($encoded_string !== false) {
-                $this->data = json_decode($encoded_string, true);
+             $this->data = json_decode($encoded_string, true);
             }
         }
     }
@@ -220,7 +220,7 @@ class FileDB {
             }
 
             if ($condition_met) {
-                $rows[] = $row;
+                $rows[$row_id] = $row; // $row_id now will match with all selected id
             }
         }
 

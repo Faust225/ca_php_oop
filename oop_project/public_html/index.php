@@ -22,36 +22,46 @@ $db->updateRow('test_table', 1, ['name' => 'Rytis Citins', 'balls' => false]);
 
 $db->rowInsertIfNotExists('test_table', 4, ['name' => 'Bubilius Kybys', 'balls' => true]);
 
-var_dump('All database data:', $db->getData());
+//var_dump('All database data:', $db->getData());
 
 $rows_with_balls = $db->getRowsWhere('test_table', ['balls' => true]);
-var_dump('Rows with balls:', $rows_with_balls);
+//var_dump('Rows with balls:', $rows_with_balls);
 
 $drink = new App\Drinks\Drink();
-$drink->setName('mano neimas');
-$drink->setAmount(2);
-$drink->setAbarot(39.5);
-$drink->setImage('/img');
+// $drink->setName('mano neimas');
+// $drink->setAmount(2);
+// $drink->setAbarot(39.5);
+// $drink->setImage('/img');
 $drink->setData([
-    'id' => 0,
-    'name' => 'Moscovskaja',
-    'amount_ml' => 3,
-    'abarot' => 40,
-    'askdf' => 'sdf',
+    // id removed
+    'name' => 'ffff',
+    'amount_ml' => 1,
+    'abarot' => 1,
     'image' => 'IMGLINK'
 ]);
 
-var_dump('Drink:', $drink);
+// var_dump('Drink:', $drink);
 
 // from Model.php is App\Drinks
 // Model is class name inside Model.php file
 $model = new App\Drinks\Model();
+$drinks = $model->get([]);
 
-$model->insert($drink);
-$model->get(['name' => 'oscar']);
-var_dump($model->insert($drink));
+// $drink->setId(0);
+// $model->update($drink);
+
+// foreach($drink_property as $drink) {
+//     var_dump($drink->getName());
+// }
+
+//$model->insert($drink);
+//var_dump($model->get(['name' => 'Moscovskaja']));
+
+ //var_dump($model->delete($drink));
+
+// var_dump($model->get(['name' => 'lala']));
 // cannot use $fileDB->load(); because it is inside __construct in Model.php
-
+// var_dump('Drink:', $drink);
 ?>
 <html>
     <head>
@@ -70,5 +80,13 @@ var_dump($model->insert($drink));
         <div class="content">
             <?php require ROOT . '/core/templates/form/form.tpl.php'; ?>
         </div>
+        <?php foreach($drinks as $drink): ?>
+        <div class="drink">
+       <p>
+        <?php print $drink->getName(); ?>
+       </p>
+       <img src="<?php print $drink->getImage(); ?>">
+       </div>
+<?php endforeach; ?>
     </body>
 </html>

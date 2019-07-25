@@ -7,7 +7,7 @@ class Drink {
     private $data = [];
 
     public function __construct($data = null) {
-        if ($data) {
+        if ($data) { // if empty array = false, if $data = null return false
             $this->setData($data);
         } else {
             $this->data = [
@@ -27,7 +27,8 @@ class Drink {
     public function setData($array) {
         if(isset($array['id'])) {
             $this->setId($array['id']);
-
+        } else {
+            $this->data['id'] = null; // if we do not want to add id it will
         }
         
         $this->setName($array['name'] ?? null);
