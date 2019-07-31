@@ -1,12 +1,11 @@
 <?php
 
 declare(strict_types = 1);
-
-
 require 'config.php';
 
 require ROOT . '/vendor/autoload.php';
 
+$app = new App\App();
 // Load Core Classes
 // require ROOT . '/core/classes/FileDB.php';
 
